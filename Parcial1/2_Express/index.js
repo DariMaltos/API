@@ -6,15 +6,15 @@ const PORT = 3000;
 // Middleware para leer JSON
 app.use(express.json());
 
-// Middleware: solo aceptar peticiones entre 9:00 y 17:00
+// Middleware: solo aceptar peticiones entre 8:00 y 17:00
 app.use((req, res, next) => {
   const ahora = new Date();
   const hora = ahora.getHours(); 
 
-  if (hora >= 9 && hora < 17) {
+  if (hora >= 8 && hora < 17) {
     next(); 
   } else {
-    res.status(403).send("Petición fuera de horario (permitido 09:00 - 18:00)");
+    res.status(403).send("Petición fuera de horario (permitido 08:00 - 18:00)");
   }
 });
 

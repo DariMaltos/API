@@ -1,0 +1,15 @@
+{
+  "name": "2_express",
+  "version": "1.0.0",
+  "description": "Servidor Express demo",
+  "main": "indexr.js",
+   "type": "module",
+  "scripts": {
+    "start": "node indexr.js"
+  },
+  "author": "Dariana Maltos",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
