@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prueba CORS</title>
+</head>
+<body>
+  <!--Petición a Express con un formulario--> 
+  <!--La etiqueta form link script estan excentas de la politica SOP-->
+  <!------------------------------------------------------------->
+  <form target="respuesta" method="GET" action="http://localhost:3000/clientes">
+    <button id="btnHttp" type="submit">PeticionForm</button>
+  </form>
+
+  <!-- Iframe donde se mostrará la respuesta del formulario -->
+  <iframe name="respuesta"></iframe>
+
+  <!--Petición a Express con fetch de JavaScript-->
+  <!--Las peticiones asincronas FETCH XMLHTTRequest con JQuery Axios deben cumplir SOP-->
+  <!-- Botón que ejecuta el fetch -->
+  <button id="btnJs">PeticionJs</button>
+
+  <script>
+    document.getElementById("btnJs").addEventListener("click", () => {
+      fetch("http://localhost:3000/clientes")
+        .then(response => response.text())
+        .then(data => console.log("Respuesta con fetch:", data))
+        .catch(error => console.error("Error en el fetch:", error));
+    });
+  </script>
+</body>
+</html>
