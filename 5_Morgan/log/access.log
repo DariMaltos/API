@@ -1,0 +1,2 @@
+::1 - - [11/Sep/2025:13:26:21 +0000] "GET /clientes HTTP/1.1" 200 53 "-" "HTTPie"
+::1 - - [12/Sep/2025:13:43:00 +0000] "GET /proveedores HTTP/1.1" 200 56 "-" "HTTPie"
