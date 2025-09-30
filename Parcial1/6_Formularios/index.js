@@ -1,25 +1,30 @@
 import express from "express";
+import multer from "multer";
 import path from "path";
 import fs from "fs";
-import multer from "multer";
-import routerCliente from "./rutas/cliente.js";
-
-// carpeta donde Multer guardará los archivos
-const carpeta = path.resolve("./archivos");
-if (!fs.existsSync(carpeta)) fs.mkdirSync(carpeta, { recursive: true });
-
-// Multer como middleware global (campo 'archivo')
-const upload = multer({ dest: carpeta });
 
 const app = express();
 const PORT = 3000;
 
-// aplica el parser multipart antes de las rutas
-app.use(upload.single("archivo"));
+// Carpeta de destino
+const carpeta = path.resolve("./archivos");
+if (!fs.existsSync(carpeta)) fs.mkdirSync(carpeta);
 
-// monta rutas
-app.use("/cliente", routerCliente);
+// Configuración simple de Multer (nombres únicos)
+const upload = multer({
+  dest: carpeta
+});
 
+// Ruta POST básica
+app.post("/subir", upload.single("archivo"), (req, res) => {
+  res.json({
+    mensaje: "Archivo recibido",
+    campos: req.body,
+    archivo: req.file
+  });
+});
+
+// Inicio
 app.listen(PORT, () => {
   console.log(`Servidor en http://localhost:${PORT}`);
 });

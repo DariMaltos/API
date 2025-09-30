@@ -1,0 +1,28 @@
+Table joyas {
+  id int [pk, increment]
+  sku varchar(40) [unique]
+  nombre varchar(120)
+  tipo enum("anillo","cadena","aretes","pulsera","dije","reloj")
+  material enum("plata_925","acero_inoxidable","chapa_oro","fantasia")
+  talla varchar(10)
+  precio decimal(10,2)
+  stock int [default: 0]
+}
+
+Table clientes {
+  id int [pk, increment]
+  nombre varchar(120)
+  telefono varchar(20)
+  email varchar(160) [unique]
+}
+
+Table ventas {
+  id_venta int [pk, increment]
+  id_joya int [ref: > joyas.id]
+  id_cliente int [ref: > clientes.id]
+  cantidad int
+  precio_unit decimal(10,2)
+  total decimal(12,2)
+  fecha datetime [default: `CURRENT_TIMESTAMP`]
+  nota varchar(200)
+}
