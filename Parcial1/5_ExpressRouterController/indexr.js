@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { routerCli } from "./rutas/clientes.js"; // 👈 export con nombre
+import { routerCli } from "./rutas/clientes.js"; 
 
 const app = express();
 const port = 3000;
