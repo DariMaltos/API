@@ -1,0 +1,32 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source": {
+    "include": ["src", "README.md"],
+    "includePattern": ".+\\.(js|mjs)$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "opts": {
+    "template": "node_modules/docdash",
+    "encoding": "utf8",
+    "destination": "./docs",
+    "recurse": true
+  },
+  "templates": {
+    "cleverLinks": true,
+    "monospaceLinks": false
+  },
+  "docdash": {
+    "static": true,
+    "search": true,
+    "collapse": true,
+    "menu": {
+      "Inicio": {
+        "href": "index.html",
+        "target": "_self"
+      }
+    }
+  }
+}
