@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Joyería",
+    "version": "1.0.0",
+    "description": "API para gestionar clientes, joyas y ventas de una joyería."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/api/clientes": {
+      "get": {
+        "summary": "Obtiene la lista de clientes",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "ID del cliente (opcional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de clientes obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cliente"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al consultar clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "fetch (browser)",
+            "source": "fetch('http://localhost:3000/api/clientes')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+          },
+          {
+            "lang": "Python",
+            "label": "requests",
+            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/clientes')\\nprint(resp.status_code, resp.json())"
+          }
+        ]
+      }
+    },
+    "/api/joyas": {
+      "get": {
+        "summary": "Obtiene la lista de joyas",
+        "tags": ["Joyas"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "ID de la joya (opcional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de joyas obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Joya"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al consultar joyas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "fetch (browser)",
+            "source": "fetch('http://localhost:3000/api/joyas')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+          },
+          {
+            "lang": "Python",
+            "label": "requests",
+            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/joyas')\\nprint(resp.status_code, resp.json())"
+          }
+        ]
+      }
+    },
+    "/api/ventas": {
+      "get": {
+        "summary": "Obtiene la lista de ventas",
+        "tags": ["Ventas"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id_venta",
+            "schema": {
+              "type": "integer"
+            },
+            "required": false,
+            "description": "ID de la venta (opcional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de ventas obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Venta"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al consultar ventas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "JavaScript",
+            "label": "fetch (browser)",
+            "source": "fetch('http://localhost:3000/api/ventas')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+          },
+          {
+            "lang": "Python",
+            "label": "requests",
+            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/ventas')\\nprint(resp.status_code, resp.json())"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Ana López"
+          },
+          "telefono": {
+            "type": "string",
+            "example": "8112345678"
+          },
+          "email": {
+            "type": "string",
+            "example": "ana@correo.com"
+          }
+        }
+      },
+      "Joya": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "sku": {
+            "type": "string",
+            "example": "CADENA-ACERO-001"
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Cadena acero 304"
+          },
+          "tipo": {
+            "type": "string",
+            "example": "cadena"
+          },
+          "material": {
+            "type": "string",
+            "example": "acero_inoxidable"
+          },
+          "talla": {
+            "type": "string",
+            "example": "18in"
+          },
+          "precio": {
+            "type": "number",
+            "format": "float",
+            "example": 299.99
+          },
+          "stock": {
+            "type": "integer",
+            "example": 10
+          }
+        }
+      },
+      "Venta": {
+        "type": "object",
+        "properties": {
+          "id_venta": {
+            "type": "integer",
+            "example": 1
+          },
+          "id_joya": {
+            "type": "integer",
+            "example": 1
+          },
+          "id_cliente": {
+            "type": "integer",
+            "example": 1
+          },
+          "cantidad": {
+            "type": "integer",
+            "example": 2
+          },
+          "precio_unit": {
+            "type": "number",
+            "format": "float",
+            "example": 150.0
+          },
+          "total": {
+            "type": "number",
+            "format": "float",
+            "example": 300.0
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-11-30T12:34:56Z"
+          },
+          "nota": {
+            "type": "string",
+            "example": "Cliente frecuente, aplicar descuento"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Error al consultar recurso"
+          }
+        }
+      }
+    }
+  }
+}

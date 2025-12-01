@@ -1,0 +1,26 @@
+// src/controllers/clientesController.js
+const pool = require('../db');
+
+async function obtenerClientes(req, res) {
+  let sql;
+  let params = [];
+
+  if (typeof req.query.id === 'undefined') {
+    sql = 'SELECT * FROM clientes';
+  } else {
+    sql = 'SELECT * FROM clientes WHERE id = ?';
+    params = [req.query.id];
+  }
+
+  try {
+    const [rows] = await pool.query(sql, params);
+    res.json(rows);
+  } catch (err) {
+    console.error('Error en obtenerClientes:', err);
+    res.status(500).json({ error: 'Error al consultar clientes' });
+  }
+}
+
+module.exports = {
+  obtenerClientes
+};
