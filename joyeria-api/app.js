@@ -19,11 +19,6 @@ app.use(express.json());
 setupSwagger(app);
 
 // Redoc leyendo el mismo openapi.json
-app.get('/docs/redoc', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'redoc.html'));
-});
-
-// (Opcional) que también funcione en /redoc
 app.get('/redoc', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'redoc.html'));
 });

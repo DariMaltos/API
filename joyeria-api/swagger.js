@@ -1,15 +1,19 @@
-// swagger.js
 const swaggerUi = require('swagger-ui-express');
-const openapiDocument = require('./openapi.json');
+const fs = require('fs');
+const path = require('path');
 
 function setupSwagger(app) {
-  // Swagger UI en /docs
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
+  const openapiPath = path.join(__dirname, 'openapi.json');
+  const openapiDocument = JSON.parse(fs.readFileSync(openapiPath, 'utf8'));
 
-  // OpenAPI JSON en /openapi.json (para Redoc y SDK)
+  // Sirve el JSON de OpenAPI
   app.get('/openapi.json', (req, res) => {
     res.json(openapiDocument);
   });
+
+  // Swagger UI SOLO en /docs
+  app.use('/docs', swaggerUi.serve);
+  app.get('/docs', swaggerUi.setup(openapiDocument));
 }
 
 module.exports = setupSwagger;
