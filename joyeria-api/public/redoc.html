@@ -6,9 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CDN de Redoc -->
-    <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
+    <script
+      src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js">
+    </script>
   </head>
   <body>
-    <redoc spec-url="/openapi.json"></redoc>
+    <div id="redoc-container"></div>
+
+    <script>
+      // Inicializa Redoc usando tu especificación
+      Redoc.init(
+        '/openapi.json',          // ruta al swagger/openapi
+        {},                       // opciones (vacías)
+        document.getElementById('redoc-container')  // contenedor
+      );
+    </script>
   </body>
 </html>
