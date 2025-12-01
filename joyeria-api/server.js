@@ -3,8 +3,8 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`API de joyería escuchando en http://localhost:${PORT}`);
-  console.log(`Swagger UI: http://localhost:${PORT}/docs`);
-  console.log(`Redoc:      http://localhost:${PORT}/docs/redoc`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`API de joyería escuchando en el puerto ${PORT}`);
+  console.log(`Swagger UI listo en /docs`);
+  console.log(`Redoc listo en /docs/redoc`);
 });
