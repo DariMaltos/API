@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.0",
   "info": {
     "title": "API Joyería",
     "version": "1.0.0",
@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:3000",
       "description": "Servidor local"
+    },
+    {
+      "url": "https://api-production-tuapp.up.railway.app",
+      "description": "Servidor en producción (Railway)"
     }
   ],
   "paths": {
@@ -16,17 +20,6 @@
       "get": {
         "summary": "Obtiene la lista de clientes",
         "tags": ["Clientes"],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "ID del cliente (opcional)"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Lista de clientes obtenida correctamente",
@@ -42,45 +35,165 @@
             }
           },
           "500": {
-            "description": "Error al consultar clientes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+            "description": "Error al consultar clientes"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crea un nuevo cliente",
+        "tags": ["Clientes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteInput"
+              },
+              "examples": {
+                "clienteEjemplo": {
+                  "summary": "Ejemplo de creación de cliente",
+                  "value": {
+                    "nombre": "Alan",
+                    "telefono": "8671234567",
+                    "email": "alan@example.com"
+                  }
                 }
               }
             }
           }
         },
-        "x-codeSamples": [
-          {
-            "lang": "JavaScript",
-            "label": "fetch (browser)",
-            "source": "fetch('http://localhost:3000/api/clientes')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+        "responses": {
+          "201": {
+            "description": "Cliente creado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
           },
-          {
-            "lang": "Python",
-            "label": "requests",
-            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/clientes')\\nprint(resp.status_code, resp.json())"
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "500": {
+            "description": "Error al crear cliente"
           }
-        ]
+        }
       }
     },
+    "/api/clientes/{id}": {
+      "get": {
+        "summary": "Obtiene un cliente por ID",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al consultar cliente"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualiza un cliente por ID",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClienteInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente actualizado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar cliente"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina un cliente por ID",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente eliminado correctamente"
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al eliminar cliente"
+          }
+        }
+      }
+    },
+
     "/api/joyas": {
       "get": {
         "summary": "Obtiene la lista de joyas",
         "tags": ["Joyas"],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "ID de la joya (opcional)"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Lista de joyas obtenida correctamente",
@@ -96,45 +209,169 @@
             }
           },
           "500": {
-            "description": "Error al consultar joyas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+            "description": "Error al consultar joyas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crea una nueva joya",
+        "tags": ["Joyas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JoyaInput"
+              },
+              "examples": {
+                "joyaEjemplo": {
+                  "summary": "Ejemplo de creación de joya",
+                  "value": {
+                    "sku": "AR01",
+                    "nombre": "Anillo acero",
+                    "tipo": "Anillo",
+                    "material": "Acero",
+                    "talla": "7",
+                    "precio": 250,
+                    "stock": 10
+                  }
                 }
               }
             }
           }
         },
-        "x-codeSamples": [
-          {
-            "lang": "JavaScript",
-            "label": "fetch (browser)",
-            "source": "fetch('http://localhost:3000/api/joyas')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+        "responses": {
+          "201": {
+            "description": "Joya creada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Joya"
+                }
+              }
+            }
           },
-          {
-            "lang": "Python",
-            "label": "requests",
-            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/joyas')\\nprint(resp.status_code, resp.json())"
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "500": {
+            "description": "Error al crear joya"
           }
-        ]
+        }
       }
     },
+    "/api/joyas/{id}": {
+      "get": {
+        "summary": "Obtiene una joya por ID",
+        "tags": ["Joyas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la joya"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Joya encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Joya"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Joya no encontrada"
+          },
+          "500": {
+            "description": "Error al consultar joya"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualiza una joya por ID",
+        "tags": ["Joyas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la joya a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JoyaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Joya actualizada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Joya"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "404": {
+            "description": "Joya no encontrada"
+          },
+          "500": {
+            "description": "Error al actualizar joya"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina una joya por ID",
+        "tags": ["Joyas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la joya a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Joya eliminada correctamente"
+          },
+          "404": {
+            "description": "Joya no encontrada"
+          },
+          "500": {
+            "description": "Error al eliminar joya"
+          }
+        }
+      }
+    },
+
     "/api/ventas": {
       "get": {
         "summary": "Obtiene la lista de ventas",
         "tags": ["Ventas"],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id_venta",
-            "schema": {
-              "type": "integer"
-            },
-            "required": false,
-            "description": "ID de la venta (opcional)"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Lista de ventas obtenida correctamente",
@@ -150,28 +387,162 @@
             }
           },
           "500": {
-            "description": "Error al consultar ventas",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+            "description": "Error al consultar ventas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crea una nueva venta",
+        "tags": ["Ventas"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VentaInput"
+              },
+              "examples": {
+                "ventaEjemplo": {
+                  "summary": "Ejemplo de creación de venta",
+                  "value": {
+                    "id_joya": 1,
+                    "id_cliente": 1,
+                    "cantidad": 2,
+                    "precio_unit": 250,
+                    "total": 500,
+                    "fecha": "2025-12-02",
+                    "nota": "Venta de prueba"
+                  }
                 }
               }
             }
           }
         },
-        "x-codeSamples": [
-          {
-            "lang": "JavaScript",
-            "label": "fetch (browser)",
-            "source": "fetch('http://localhost:3000/api/ventas')\\n  .then(res => res.json())\\n  .then(data => console.log(data))\\n  .catch(console.error);"
+        "responses": {
+          "201": {
+            "description": "Venta creada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Venta"
+                }
+              }
+            }
           },
-          {
-            "lang": "Python",
-            "label": "requests",
-            "source": "import requests\\n\\nresp = requests.get('http://localhost:3000/api/ventas')\\nprint(resp.status_code, resp.json())"
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "500": {
+            "description": "Error al crear venta"
           }
-        ]
+        }
+      }
+    },
+    "/api/ventas/{id_venta}": {
+      "get": {
+        "summary": "Obtiene una venta por ID",
+        "tags": ["Ventas"],
+        "parameters": [
+          {
+            "name": "id_venta",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la venta"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Venta encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Venta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Venta no encontrada"
+          },
+          "500": {
+            "description": "Error al consultar venta"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualiza una venta por ID",
+        "tags": ["Ventas"],
+        "parameters": [
+          {
+            "name": "id_venta",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la venta a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VentaInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Venta actualizada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Venta"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Datos incompletos o inválidos"
+          },
+          "404": {
+            "description": "Venta no encontrada"
+          },
+          "500": {
+            "description": "Error al actualizar venta"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina una venta por ID",
+        "tags": ["Ventas"],
+        "parameters": [
+          {
+            "name": "id_venta",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la venta a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Venta eliminada correctamente"
+          },
+          "404": {
+            "description": "Venta no encontrada"
+          },
+          "500": {
+            "description": "Error al eliminar venta"
+          }
+        }
       }
     }
   },
@@ -186,15 +557,33 @@
           },
           "nombre": {
             "type": "string",
-            "example": "Ana López"
+            "example": "Alan"
           },
           "telefono": {
             "type": "string",
-            "example": "8112345678"
+            "example": "8671234567"
           },
           "email": {
             "type": "string",
-            "example": "ana@correo.com"
+            "example": "alan@example.com"
+          }
+        }
+      },
+      "ClienteInput": {
+        "type": "object",
+        "required": ["nombre", "telefono", "email"],
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "example": "Alan"
+          },
+          "telefono": {
+            "type": "string",
+            "example": "8671234567"
+          },
+          "email": {
+            "type": "string",
+            "example": "alan@example.com"
           }
         }
       },
@@ -207,28 +596,68 @@
           },
           "sku": {
             "type": "string",
-            "example": "CADENA-ACERO-001"
+            "example": "AR01"
           },
           "nombre": {
             "type": "string",
-            "example": "Cadena acero 304"
+            "example": "Anillo acero"
           },
           "tipo": {
             "type": "string",
-            "example": "cadena"
+            "example": "Anillo"
           },
           "material": {
             "type": "string",
-            "example": "acero_inoxidable"
+            "example": "Acero"
           },
           "talla": {
             "type": "string",
-            "example": "18in"
+            "example": "7"
           },
           "precio": {
             "type": "number",
             "format": "float",
-            "example": 299.99
+            "example": 250
+          },
+          "stock": {
+            "type": "integer",
+            "example": 10
+          },
+          "creado_en": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-12-02T10:00:00Z"
+          }
+        }
+      },
+      "JoyaInput": {
+        "type": "object",
+        "required": ["sku", "nombre", "precio"],
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "AR01"
+          },
+          "nombre": {
+            "type": "string",
+            "example": "Anillo acero"
+          },
+          "tipo": {
+            "type": "string",
+            "example": "Anillo"
+          },
+          "material": {
+            "type": "string",
+            "example": "Acero"
+          },
+          "talla": {
+            "type": "string",
+            "example": "7"
+          },
+          "precio": {
+            "type": "number",
+            "format": "float",
+            "example": 250
           },
           "stock": {
             "type": "integer",
@@ -258,30 +687,58 @@
           "precio_unit": {
             "type": "number",
             "format": "float",
-            "example": 150.0
+            "example": 250
           },
           "total": {
             "type": "number",
             "format": "float",
-            "example": 300.0
+            "example": 500
           },
           "fecha": {
             "type": "string",
-            "format": "date-time",
-            "example": "2025-11-30T12:34:56Z"
+            "format": "date",
+            "example": "2025-12-02"
           },
           "nota": {
             "type": "string",
-            "example": "Cliente frecuente, aplicar descuento"
+            "example": "Venta de prueba"
           }
         }
       },
-      "Error": {
+      "VentaInput": {
         "type": "object",
+        "required": ["id_joya", "id_cliente", "cantidad", "precio_unit", "total"],
         "properties": {
-          "error": {
+          "id_joya": {
+            "type": "integer",
+            "example": 1
+          },
+          "id_cliente": {
+            "type": "integer",
+            "example": 1
+          },
+          "cantidad": {
+            "type": "integer",
+            "example": 2
+          },
+          "precio_unit": {
+            "type": "number",
+            "format": "float",
+            "example": 250
+          },
+          "total": {
+            "type": "number",
+            "format": "float",
+            "example": 500
+          },
+          "fecha": {
             "type": "string",
-            "example": "Error al consultar recurso"
+            "format": "date",
+            "example": "2025-12-02"
+          },
+          "nota": {
+            "type": "string",
+            "example": "Venta de prueba"
           }
         }
       }

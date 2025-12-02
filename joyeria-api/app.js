@@ -18,19 +18,18 @@ app.use(express.json());
 // Swagger UI + /openapi.json
 setupSwagger(app);
 
-// Redoc leyendo el mismo openapi.json
-app.get('/redoc', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'redoc.html'));
-});
+// Redoc HTML
+app.use('/docs/redoc', express.static(path.join(__dirname, 'public', 'redoc.html')));
 
 // Endpoint de prueba
 app.get('/', (req, res) => {
   res.send('API de Joyería funcionando');
 });
 
-// Rutas de la API
+// Rutas API
 app.use('/api/clientes', clientesRouter);
 app.use('/api/joyas', joyasRouter);
 app.use('/api/ventas', ventasRouter);
+
 
 module.exports = app;
