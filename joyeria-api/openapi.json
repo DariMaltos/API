@@ -5,16 +5,16 @@
     "version": "1.0.0",
     "description": "API para gestionar clientes, joyas y ventas de una joyería."
   },
-  "servers": [
-    {
-      "url": "http://localhost:3000",
-      "description": "Servidor local"
-    },
-    {
-      "url": "https://api-production-tuapp.up.railway.app",
-      "description": "Servidor en producción (Railway)"
-    }
-  ],
+"servers": [
+  {
+    "url": "https://api-production-ba7c.up.railway.app",
+    "description": "Servidor en producción"
+  },
+  {
+    "url": "http://localhost:3000",
+    "description": "Servidor local"
+  }
+],
   "paths": {
     "/api/clientes": {
       "get": {
