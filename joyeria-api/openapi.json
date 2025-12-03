@@ -5,16 +5,16 @@
     "version": "1.0.0",
     "description": "API para gestionar clientes, joyas y ventas de una joyería."
   },
-"servers": [
-  {
-    "url": "https://api-production-ba7c.up.railway.app",
-    "description": "Servidor en producción"
-  },
-  {
-    "url": "http://localhost:3000",
-    "description": "Servidor local"
-  }
-],
+  "servers": [
+    {
+      "url": "https://api-production-ba7c.up.railway.app",
+      "description": "Servidor en producción"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
   "paths": {
     "/api/clientes": {
       "get": {
@@ -159,6 +159,60 @@
           },
           "500": {
             "description": "Error al actualizar cliente"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Actualiza parcialmente un cliente por ID",
+        "tags": ["Clientes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID del cliente a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string",
+                    "example": "Daris"
+                  },
+                  "telefono": {
+                    "type": "string",
+                    "example": "8670000000"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "daris@example.com"
+                  }
+                },
+                "description": "Campos a actualizar (todos opcionales)"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente actualizado parcialmente"
+          },
+          "400": {
+            "description": "No se enviaron campos para actualizar"
+          },
+          "404": {
+            "description": "Cliente no encontrado"
+          },
+          "500": {
+            "description": "Error al actualizar cliente parcialmente"
           }
         }
       },
@@ -340,6 +394,77 @@
           }
         }
       },
+      "patch": {
+        "summary": "Actualiza parcialmente una joya por ID",
+        "tags": ["Joyas"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la joya a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sku": {
+                    "type": "string",
+                    "example": "AR01"
+                  },
+                  "nombre": {
+                    "type": "string",
+                    "example": "Anillo acero actualizado"
+                  },
+                  "tipo": {
+                    "type": "string",
+                    "example": "Anillo"
+                  },
+                  "material": {
+                    "type": "string",
+                    "example": "Acero"
+                  },
+                  "talla": {
+                    "type": "string",
+                    "example": "7"
+                  },
+                  "precio": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 220
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "example": 12
+                  }
+                },
+                "description": "Campos a actualizar (todos opcionales)"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Joya actualizada parcialmente"
+          },
+          "400": {
+            "description": "No se enviaron campos para actualizar"
+          },
+          "404": {
+            "description": "Joya no encontrada"
+          },
+          "500": {
+            "description": "Error al actualizar joya parcialmente"
+          }
+        }
+      },
       "delete": {
         "summary": "Elimina una joya por ID",
         "tags": ["Joyas"],
@@ -515,6 +640,79 @@
           },
           "500": {
             "description": "Error al actualizar venta"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Actualiza parcialmente una venta por ID",
+        "tags": ["Ventas"],
+        "parameters": [
+          {
+            "name": "id_venta",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID de la venta a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id_joya": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "id_cliente": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "cantidad": {
+                    "type": "integer",
+                    "example": 3
+                  },
+                  "precio_unit": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 500
+                  },
+                  "total": {
+                    "type": "number",
+                    "format": "float",
+                    "example": 1500
+                  },
+                  "fecha": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-12-03T12:00:00Z"
+                  },
+                  "nota": {
+                    "type": "string",
+                    "example": "Venta actualizada desde PATCH"
+                  }
+                },
+                "description": "Campos a actualizar (todos opcionales)"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Venta actualizada parcialmente"
+          },
+          "400": {
+            "description": "No se enviaron campos para actualizar"
+          },
+          "404": {
+            "description": "Venta no encontrada"
+          },
+          "500": {
+            "description": "Error al actualizar venta parcialmente"
           }
         }
       },
