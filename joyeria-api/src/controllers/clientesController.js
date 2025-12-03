@@ -90,6 +90,54 @@ async function actualizarCliente(req, res) {
   }
 }
 
+// PATCH /api/clientes/:id  -> actualización parcial
+async function actualizarClienteParcial(req, res) {
+  const { id } = req.params;
+  const { nombre, telefono, email } = req.body;
+
+  try {
+    const campos = [];
+    const valores = [];
+
+    if (nombre !== undefined) {
+      campos.push('nombre = ?');
+      valores.push(nombre);
+    }
+    if (telefono !== undefined) {
+      campos.push('telefono = ?');
+      valores.push(telefono);
+    }
+    if (email !== undefined) {
+      campos.push('email = ?');
+      valores.push(email);
+    }
+
+    if (campos.length === 0) {
+      return res.status(400).json({
+        error: 'No se enviaron campos para actualizar',
+      });
+    }
+
+    const sql = `UPDATE clientes SET ${campos.join(', ')} WHERE id = ?`;
+    valores.push(id);
+
+    const [result] = await pool.query(sql, valores);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+
+    res.json({
+      message: 'Cliente actualizado parcialmente',
+      id: Number(id),
+    });
+  } catch (err) {
+    console.error('Error en actualizarClienteParcial:', err);
+    res.status(500).json({ error: 'Error al actualizar cliente parcialmente' });
+  }
+}
+
+
 // DELETE /api/clientes/:id  -> eliminar cliente
 async function eliminarCliente(req, res) {
   const { id } = req.params;
@@ -116,5 +164,6 @@ module.exports = {
   obtenerClientePorId,
   crearCliente,
   actualizarCliente,
+  actualizarClienteParcial,
   eliminarCliente,
 };

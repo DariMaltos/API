@@ -5,6 +5,7 @@ const {
   crearVenta,
   actualizarVenta,
   eliminarVenta,
+  actualizarVentaParcial,    
 } = require('../controllers/ventasController');
 
 const router = express.Router();
@@ -20,6 +21,9 @@ router.post('/', crearVenta);
 
 // PUT /api/ventas/:id_venta
 router.put('/:id_venta', actualizarVenta);
+
+// PATCH /api/ventas/:id_venta
+router.patch('/:id_venta', actualizarVentaParcial);  
 
 // DELETE /api/ventas/:id_venta
 router.delete('/:id_venta', eliminarVenta);

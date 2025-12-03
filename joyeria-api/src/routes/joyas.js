@@ -5,6 +5,7 @@ const {
   crearJoya,
   actualizarJoya,
   eliminarJoya,
+  actualizarJoyaParcial,   
 } = require('../controllers/joyasController');
 
 const router = express.Router();
@@ -20,6 +21,9 @@ router.post('/', crearJoya);
 
 // PUT /api/joyas/:id
 router.put('/:id', actualizarJoya);
+
+// PATCH /api/joyas/:id
+router.patch('/:id', actualizarJoyaParcial);   
 
 // DELETE /api/joyas/:id
 router.delete('/:id', eliminarJoya);

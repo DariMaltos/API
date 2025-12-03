@@ -5,6 +5,7 @@ const {
   crearCliente,
   actualizarCliente,
   eliminarCliente,
+  actualizarClienteParcial,  
 } = require('../controllers/clientesController');
 
 const router = express.Router();
@@ -20,6 +21,9 @@ router.post('/', crearCliente);
 
 // PUT /api/clientes/:id
 router.put('/:id', actualizarCliente);
+
+// PATCH /api/clientes/:id
+router.patch('/:id', actualizarClienteParcial);   
 
 // DELETE /api/clientes/:id
 router.delete('/:id', eliminarCliente);

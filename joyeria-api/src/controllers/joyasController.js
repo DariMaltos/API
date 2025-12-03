@@ -103,6 +103,70 @@ async function actualizarJoya(req, res) {
   }
 }
 
+// PATCH /api/joyas/:id  -> actualización parcial
+async function actualizarJoyaParcial(req, res) {
+  const { id } = req.params;
+  const { sku, nombre, tipo, material, talla, precio, stock } = req.body;
+
+  try {
+    const campos = [];
+    const valores = [];
+
+    if (sku !== undefined) {
+      campos.push('sku = ?');
+      valores.push(sku);
+    }
+    if (nombre !== undefined) {
+      campos.push('nombre = ?');
+      valores.push(nombre);
+    }
+    if (tipo !== undefined) {
+      campos.push('tipo = ?');
+      valores.push(tipo);
+    }
+    if (material !== undefined) {
+      campos.push('material = ?');
+      valores.push(material);
+    }
+    if (talla !== undefined) {
+      campos.push('talla = ?');
+      valores.push(talla);
+    }
+    if (precio !== undefined) {
+      campos.push('precio = ?');
+      valores.push(precio);
+    }
+    if (stock !== undefined) {
+      campos.push('stock = ?');
+      valores.push(stock);
+    }
+
+    if (campos.length === 0) {
+      return res.status(400).json({
+        error: 'No se enviaron campos para actualizar',
+      });
+    }
+
+    const sql = `UPDATE joyas SET ${campos.join(', ')} WHERE id = ?`;
+    valores.push(id);
+
+    const [result] = await pool.query(sql, valores);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Joya no encontrada' });
+    }
+
+    res.json({
+      message: 'Joya actualizada parcialmente',
+      id: Number(id),
+    });
+  } catch (err) {
+    console.error('Error en actualizarJoyaParcial:', err);
+    res.status(500).json({ error: 'Error al actualizar joya parcialmente' });
+  }
+}
+
+
 // DELETE /api/joyas/:id
 async function eliminarJoya(req, res) {
   const { id } = req.params;
@@ -126,5 +190,6 @@ module.exports = {
   obtenerJoyaPorId,
   crearJoya,
   actualizarJoya,
+  actualizarJoyaParcial,
   eliminarJoya,
 };
