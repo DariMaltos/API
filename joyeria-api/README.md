@@ -129,7 +129,6 @@ npm run dev
 Servidor en modo producción
 npm start
 
-
 ---
 
 🌐 URLs base
@@ -156,7 +155,8 @@ Códigos de respuesta
 Estructura completa de la API
 Endpoints principales
 
---
+---
+
 A continuación, se presentan los recursos principales (Clientes, Joyas y Ventas) con sus rutas y métodos HTTP.
 
   Clientes
