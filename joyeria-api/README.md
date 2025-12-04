@@ -71,6 +71,8 @@ joyeria-api/
 ├── package.json
 └── README.md
 
+---
+
 Base de datos
 
 La API utiliza la base de datos joyeria_api con tablas relacionales y llaves foráneas.
@@ -115,6 +117,7 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
+---
 
 🚀 Instalación y ejecución
 Instalar dependencias
@@ -127,12 +130,16 @@ Servidor en modo producción
 npm start
 
 
+---
+
 🌐 URLs base
 Local:
 http://localhost:3000
 
 Producción (Railway):
 https://api-production-ba7c.up.railway.app
+
+---
 
 Documentación de la API
   Swagger UI
@@ -149,7 +156,8 @@ Códigos de respuesta
 Estructura completa de la API
 Endpoints principales
 
-A continuación se presentan los recursos principales (Clientes, Joyas y Ventas) con sus rutas y métodos HTTP.
+--
+A continuación, se presentan los recursos principales (Clientes, Joyas y Ventas) con sus rutas y métodos HTTP.
 
   Clientes
 Método	Ruta	Descripción
