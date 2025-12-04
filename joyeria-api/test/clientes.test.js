@@ -13,7 +13,7 @@ describe('GET /api/clientes', () => {
       const cliente = res.body[0];
       expect(cliente).toHaveProperty('id');
       expect(cliente).toHaveProperty('nombre');
-      expect(cliente).toHaveProperty('telefono'); // <-- aquí estaba el error
+      expect(cliente).toHaveProperty('telefono'); 
       expect(cliente).toHaveProperty('email');
     }
   });

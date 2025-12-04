@@ -1,52 +1,64 @@
-# 💎 API de Joyería  
-**Autora: Dariana Gishel Maltos González — 21100239**
-
-API REST para gestionar **clientes, joyas y ventas** de una joyería.  
-Desarrollada con **Node.js + Express + MySQL**, documentada mediante **OpenAPI 3.0**, **Swagger UI** y **Redoc**, e incluye pruebas automatizadas con **Jest + Supertest**.
-
----
-
-## 🎯 Objetivo del proyecto
-
-Desarrollar una API funcional y documentada que permita:
-
-- Consultar información de clientes, joyas y ventas.
-- Implementar arquitectura **MVC** (Model – View – Controller).
-- Usar una base de datos **MySQL** con WAMP.
-- Documentar la API con **OpenAPI 3.0**.
-- Mostrar documentación en **Swagger UI** y **Redoc**.
-- Usar ejemplos de consumo en Python y JavaScript via **x-codeSamples**.
-- Generar un **SDK en JavaScript** desde `openapi.json`.
-- Ejecutar pruebas unitarias con **Jest** y **Supertest**.
+# API de Joyería  
+**Autora:** Dariana Gishel Maltos González — *21100239*  
+**Materia:** API REST  
+**Tecnologías:** Node.js · Express · MySQL · Swagger · Redoc · Jest · Supertest  
 
 ---
 
-## 🧱 Tecnologías utilizadas
+## Descripción general
 
-- Node.js
-- Express
-- MySQL (WAMP)
-- mysql2/promise
-- Swagger UI (swagger-ui-express)
-- Redoc
-- Jest
-- Supertest
-- OpenAPI Generator CLI
+La **API de Joyería** es un sistema backend diseñado para gestionar:
+
+- 👥 **Clientes**  
+- 💍 **Joyas**  
+- 🧾 **Ventas**
+
+La API sigue arquitectura **MVC**, utiliza **MySQL** como base de datos, está documentada con **OpenAPI 3.0**, expuesta mediante **Swagger UI** y **Redoc**, e incluye pruebas automatizadas con **Jest** + **Supertest**.
+
+El proyecto está desplegado en **Railway** y cuenta con endpoints completamente funcionales (GET, POST, PUT, DELETE y PATCH).
 
 ---
 
-## 📁 Estructura del proyecto
+## Objetivos del proyecto
+
+- Implementar un servidor REST con **Node.js y Express**.  
+- Conectar y manipular datos en **MySQL**.  
+- Construir controladores, rutas y modelos siguiendo **arquitectura MVC**.  
+- Documentar profesionalmente usando **Swagger UI**, **Redoc** y el formato **OpenAPI 3.0**.  
+- Desarrollar pruebas automatizadas con **Jest + Supertest**.  
+- Realizar despliegue en un entorno cloud (**Railway**).  
+- Implementar actualizaciones **parciales (PATCH)**.  
+
+---
+
+## Tecnologías y librerías utilizadas
+
+| Tecnología | Uso |
+|-----------|-----|
+| **Node.js** | Entorno de ejecución |
+| **Express** | Servidor web y manejo de rutas |
+| **MySQL + mysql2/promise** | Base de datos |
+| **Swagger UI** | Documentación interactiva |
+| **Redoc** | Documentación tipo manual técnico |
+| **OpenAPI 3.0** | Definición formal de endpoints |
+| **Jest** | Testing |
+| **Supertest** | Pruebas de endpoints HTTP |
+| **Railway** | Despliegue en producción |
+
+---
+
+## Estructura del proyecto
 
 ```txt
 joyeria-api/
 ├── server.js                 # Arranque del servidor
 ├── app.js                    # Configuración de Express
-├── swagger.js                # Swagger UI y /openapi.json
-├── openapi.json              # Definición OpenAPI 3.0
+├── swagger.js                # Configura Swagger UI y sirve openapi.json
+├── openapi.json              # Especificación OpenAPI 3.0
 ├── public/
-│   └── redoc.html            # Página con Redoc
+│   └── redoc.html            # Página Redoc
 ├── src/
-│   ├── db.js                 # Conexión a MySQL
+│   ├── db.js                 # Conexión MySQL
 │   ├── controllers/
 │   │   ├── clientesController.js
 │   │   ├── joyasController.js
@@ -56,38 +68,29 @@ joyeria-api/
 │       ├── joyas.js
 │       └── ventas.js
 ├── test/
-│   └── clientes.test.js      # Pruebas Jest/Supertest
-├── sdk/                      # SDK generado automáticamente
+│   └── clientes.test.js      # Pruebas Jest + Supertest
 ├── package.json
 └── README.md
 
--- ===============================
---  BASE DE DATOS joyeria_api
--- ===============================
-
+## Base de datos
+La API utiliza la base de datos joyeria_api con tablas relacionales y llaves foráneas:
 CREATE DATABASE IF NOT EXISTS joyeria_api;
 USE joyeria_api;
 
--- ===============================
---  TABLA: joyas
--- ===============================
-
+**Tabla joyas:**
 CREATE TABLE joyas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   sku VARCHAR(40) UNIQUE,
   nombre VARCHAR(120),
-  tipo ENUM('anillo','cadena','aretes','pulsera','dije','reloj'),
-  material ENUM('plata_925','acero_inoxidable','chapa_oro','fantasia'),
+  tipo VARCHAR(40),
+  material VARCHAR(40),
   talla VARCHAR(10),
   precio DECIMAL(10,2),
   stock INT DEFAULT 0,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ===============================
---  TABLA: clientes
--- ===============================
-
+**Tabla clientes:**
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(120),
@@ -96,10 +99,7 @@ CREATE TABLE clientes (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ===============================
---  TABLA: ventas
--- ===============================
-
+**Tabla ventas:**
 CREATE TABLE ventas (
   id_venta INT AUTO_INCREMENT PRIMARY KEY,
   id_joya INT,
@@ -112,146 +112,93 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_joya) REFERENCES joyas(id),
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
-▶️ Instalación y ejecución
-1️⃣ Instalar dependencias
-npm install
-
-2️⃣ Iniciar servidor
-
-Modo desarrollo (con nodemon):
-
-npm run dev
 
 
-Modo normal:
+## Instalación y ejecución
 
-npm start
+**Instalar dependencias:**
+--npm install
 
+**Iniciar servidor en desarrollo:**
+--npm run dev
 
-El servidor responde en:
+**Servidor en modo producción:**
+--npm start
 
-http://localhost:3000/ → mensaje “API de Joyería funcionando”.
+**URLS base:**
+--Local: http://localhost:3000
+--Producción (Railway): https://api-production-ba7c.up.railway.app
 
-📚 Documentación generada
-🟦 Swagger UI
+## Documentación de la API
+**Swagger UI**
+--http://localhost:3000/docs
+Permite ejecutar GET, POST, PUT, DELETE y PATCH.
 
-Interfaz interactiva donde se pueden probar los endpoints:
+**Redoc**
+--http://localhost:3000/docs/redoc
+Incluye:
+Schemas
+Parámetros
+Ejemplos (x-codeSamples)
+Códigos de respuesta
 
-http://localhost:3000/docs
+## Endpoints principales
+A continuación, se muestran los endpoints organizados por recurso (Clientes, Joyas y Ventas) con sus métodos HTTP y rutas correspondientes:
+**Clientes**
 
-🔵 Redoc
+--GET — /api/clientes
+Lista todos los clientes.
 
-Documentación tipo “manual técnico” basada en OpenAPI 3.0:
+--GET — /api/clientes/{id}
+Obtiene un cliente por ID.
 
-http://localhost:3000/docs/redoc
+--POST — /api/clientes
+Crea un nuevo cliente.
 
-🟧 OpenAPI JSON
+--PUT — /api/clientes/{id}
+Actualiza un cliente completamente.
 
-Objeto OpenAPI utilizado tanto por Swagger como por Redoc y el generador de SDK:
+--PATCH — /api/clientes/{id}
+Actualiza parcialmente un cliente.
 
-http://localhost:3000/openapi.json
+--DELETE — /api/clientes/{id}
+Elimina un cliente por ID.
 
-En Redoc se muestran también los x-codeSamples, con ejemplos de consumo de la API en JavaScript y Python.
+**Joyas**
+--GET — /api/joyas
+Lista todas las joyas.
 
-🧵 Endpoints principales
-Clientes
+--GET — /api/joyas/{id}
+Obtiene una joya por ID.
 
-GET /api/clientes
-Devuelve la lista completa de clientes.
+--POST — /api/joyas
+Crea una nueva joya.
 
-GET /api/clientes?id=1
-Devuelve el cliente con id = 1.
+--PUT — /api/joyas/{id}
+Actualiza una joya completamente.
 
-Joyas
+--PATCH — /api/joyas/{id}
+Actualiza parcialmente una joya.
 
-GET /api/joyas
-Devuelve la lista de joyas.
-
-GET /api/joyas?id=1
-Devuelve la joya con id = 1.
-
-Ventas
-
-GET /api/ventas
-Devuelve todas las ventas registradas.
-
-GET /api/ventas?id_venta=1
-Devuelve la venta con id_venta = 1.
-
-💻 Ejemplos de consumo (JavaScript y Python)
-
-Estos ejemplos también se encuentran como x-codeSamples dentro de openapi.json y se visualizan en Redoc.
-
-JavaScript – fetch (navegador)
-// Obtener todos los clientes
-fetch('http://localhost:3000/api/clientes')
-  .then(res => res.json())
-  .then(data => console.log('Clientes:', data))
-  .catch(console.error);
-
-// Obtener todas las joyas
-fetch('http://localhost:3000/api/joyas')
-  .then(res => res.json())
-  .then(data => console.log('Joyas:', data))
-  .catch(console.error);
-
-Python – requests
-import requests
-
-# Obtener lista de clientes
-resp = requests.get("http://localhost:3000/api/clientes")
-print("Status:", resp.status_code)
-print("Clientes:", resp.json())
-
-# Obtener lista de ventas
-resp = requests.get("http://localhost:3000/api/ventas")
-print("Ventas:", resp.json())
-
-🧪 Pruebas automatizadas (Jest + Supertest)
-
-El proyecto incluye pruebas con Jest y Supertest para verificar el funcionamiento de la API.
-
-Ejecutar todas las pruebas:
-
-npm test
+--DELETE — /api/joyas/{id}
+Elimina una joya por ID.
 
 
-Ejemplo de prueba (test/clientes.test.js):
+**Ventas**
+--GET — /api/ventas
+Lista todas las ventas.
 
-const request = require('supertest');
-const app = require('../app');
-const pool = require('../src/db');
+--GET — /api/ventas/{id_venta}
+Obtiene una venta por ID.
 
-describe('GET /api/clientes', () => {
-  it('debe regresar 200 y un arreglo de clientes', async () => {
-    const res = await request(app).get('/api/clientes');
+--POST — /api/ventas
+Crea una nueva venta.
 
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-  });
-});
+--PUT — /api/ventas/{id_venta}
+Actualiza completamente una venta.
 
-afterAll(async () => {
-  await pool.end();
-});
+--PATCH — /api/ventas/{id_venta}
+Actualiza parcialmente una venta.
 
-📦 SDK en JavaScript (OpenAPI Generator)
-
-A partir del archivo openapi.json, se puede generar un SDK en JavaScript usando OpenAPI Generator CLI.
-
-Script definido en package.json:
-
-"generate:sdk": "openapi-generator-cli generate -i openapi.json -g javascript -o sdk"
-
-
-Para generar el SDK:
-
-npm run generate:sdk
-
-
-Esto crea una carpeta sdk/ con el cliente JavaScript para consumir la API desde otras aplicaciones.
-
-👤 Autora
-
-Dariana Gishel Maltos González — 21100239
-Proyecto académico: API REST de Joyería
+--DELETE — /api/ventas/{id_venta}
+Elimina una venta por ID.
