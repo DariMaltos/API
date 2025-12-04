@@ -115,91 +115,65 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
-## Instalación y ejecución
 
-**Instalar dependencias:**
---npm install
+🚀 Instalación y ejecución
+Instalar dependencias
+npm install
 
-**Iniciar servidor en desarrollo:**
---npm run dev
+Iniciar servidor en desarrollo
+npm run dev
 
-**Servidor en modo producción:**
---npm start
+Servidor en modo producción
+npm start
 
-**URLS base:**
---Local: http://localhost:3000
---Producción (Railway): https://api-production-ba7c.up.railway.app
 
-## Documentación de la API
-**Swagger UI**
---http://localhost:3000/docs
-Permite ejecutar GET, POST, PUT, DELETE y PATCH.
+🌐 URLs base
+Local:
+http://localhost:3000
 
-**Redoc**
---http://localhost:3000/docs/redoc
+Producción (Railway):
+https://api-production-ba7c.up.railway.app
+
+Documentación de la API
+  Swagger UI
+📍 http://localhost:3000/docs
+Permite probar endpoints GET, POST, PUT, DELETE y PATCH desde el navegador.
+
+  Redoc
+📍 http://localhost:3000/docs/redoc
 Incluye:
 Schemas
 Parámetros
 Ejemplos (x-codeSamples)
 Códigos de respuesta
+Estructura completa de la API
+Endpoints principales
 
-## Endpoints principales
-A continuación, se muestran los endpoints organizados por recurso (Clientes, Joyas y Ventas) con sus métodos HTTP y rutas correspondientes:
-**Clientes**
+A continuación se presentan los recursos principales (Clientes, Joyas y Ventas) con sus rutas y métodos HTTP.
 
---GET — /api/clientes
-Lista todos los clientes.
+  Clientes
+Método	Ruta	Descripción
+GET	/api/clientes	Lista todos los clientes
+GET	/api/clientes/{id}	Obtiene un cliente por ID
+POST	/api/clientes	Crea un nuevo cliente
+PUT	/api/clientes/{id}	Actualiza un cliente completamente
+PATCH	/api/clientes/{id}	Actualiza parcialmente un cliente
+DELETE	/api/clientes/{id}	Elimina un cliente por ID
 
---GET — /api/clientes/{id}
-Obtiene un cliente por ID.
+  Joyas
+Método	Ruta	Descripción
+GET	/api/joyas	Lista todas las joyas
+GET	/api/joyas/{id}	Obtiene una joya por ID
+POST	/api/joyas	Crea una nueva joya
+PUT	/api/joyas/{id}	Actualiza una joya completamente
+PATCH	/api/joyas/{id}	Actualiza parcialmente una joya
+DELETE	/api/joyas/{id}	Elimina una joya por ID
 
---POST — /api/clientes
-Crea un nuevo cliente.
-
---PUT — /api/clientes/{id}
-Actualiza un cliente completamente.
-
---PATCH — /api/clientes/{id}
-Actualiza parcialmente un cliente.
-
---DELETE — /api/clientes/{id}
-Elimina un cliente por ID.
-
-**Joyas**
---GET — /api/joyas
-Lista todas las joyas.
-
---GET — /api/joyas/{id}
-Obtiene una joya por ID.
-
---POST — /api/joyas
-Crea una nueva joya.
-
---PUT — /api/joyas/{id}
-Actualiza una joya completamente.
-
---PATCH — /api/joyas/{id}
-Actualiza parcialmente una joya.
-
---DELETE — /api/joyas/{id}
-Elimina una joya por ID.
-
-
-**Ventas**
---GET — /api/ventas
-Lista todas las ventas.
-
---GET — /api/ventas/{id_venta}
-Obtiene una venta por ID.
-
---POST — /api/ventas
-Crea una nueva venta.
-
---PUT — /api/ventas/{id_venta}
-Actualiza completamente una venta.
-
---PATCH — /api/ventas/{id_venta}
-Actualiza parcialmente una venta.
-
---DELETE — /api/ventas/{id_venta}
-Elimina una venta por ID.
+  Ventas
+Método	Ruta	Descripción
+GET	/api/ventas	Lista todas las ventas
+GET	/api/ventas/{id_venta}	Obtiene una venta por ID
+POST	/api/ventas	Crea una nueva venta
+PUT	/api/ventas/{id_venta}	Actualiza completamente una venta
+PATCH	/api/ventas/{id_venta}	Actualiza parcialmente una venta
+DELETE	/api/ventas/{id_venta}	Elimina una venta por ID
