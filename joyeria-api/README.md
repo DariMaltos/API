@@ -5,35 +5,45 @@ Materia: API REST
 Tecnologías: Node.js · Express · MySQL · Swagger · Redoc
 
 Descripción general
+
 La API de Joyería es un sistema backend diseñado para gestionar:
- Clientes
- Joyas
- Ventas
+
+👥 Clientes
+
+💍 Joyas
+
+🧾 Ventas
 
 La API sigue arquitectura MVC, utiliza MySQL como base de datos, está documentada con OpenAPI 3.0, expuesta mediante Swagger UI y Redoc, e incluye pruebas automatizadas con Jest + Supertest.
 
 El proyecto está desplegado en Railway y cuenta con endpoints completamente funcionales (GET, POST, PUT, DELETE y PATCH).
 
-
 Objetivos del proyecto
+
 Implementar un servidor REST con Node.js y Express.
+
 Conectar y manipular datos en MySQL.
-Construir controladores, rutas y modelos siguiendo arquitectura MVC.
-Documentar profesionalmente usando Swagger UI, Redoc y OpenAPI 3.0.
-Desarrollar pruebas automatizadas con Jest + Supertest.
-Realizar despliegue en Railway.
+
+Construir controladores y rutas siguiendo arquitectura MVC.
+
+Documentar con Swagger UI, Redoc y OpenAPI 3.0.
+
+Crear pruebas automatizadas con Jest + Supertest.
+
+Desplegar la API en Railway.
+
 Implementar actualizaciones parciales (PATCH).
 
 Tecnologías y librerías utilizadas
 Tecnología	Uso
 Node.js	Entorno de ejecución
-Express	Servidor web y manejo de rutas
+Express	Servidor web y rutas
 MySQL + mysql2/promise	Base de datos
 Swagger UI	Documentación interactiva
-Redoc	Documentación tipo manual técnico
-OpenAPI 3.0	Definición formal de endpoints
+Redoc	Documentación técnica
+OpenAPI 3.0	Especificación de endpoints
 Jest	Testing
-Supertest	Pruebas de endpoints
+Supertest	Pruebas HTTP
 Railway	Producción
 Estructura del proyecto
 joyeria-api/
@@ -60,13 +70,13 @@ joyeria-api/
 
 Base de datos
 
-La API utiliza la base de datos joyeria_api, con tablas relacionales y llaves foráneas.
+La API utiliza la base joyeria_api, con tablas relacionales y llaves foráneas.
 
 Crear base de datos
 CREATE DATABASE IF NOT EXISTS joyeria_api;
 USE joyeria_api;
 
-💎 Tabla: joyas
+Tabla joyas
 CREATE TABLE joyas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   sku VARCHAR(40) UNIQUE,
@@ -79,7 +89,7 @@ CREATE TABLE joyas (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-👤 Tabla: clientes
+Tabla clientes
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(120),
@@ -88,7 +98,7 @@ CREATE TABLE clientes (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-🧾 Tabla: ventas
+Tabla ventas
 CREATE TABLE ventas (
   id_venta INT AUTO_INCREMENT PRIMARY KEY,
   id_joya INT,
@@ -102,57 +112,59 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
-🚀 Instalación y ejecución
+Instalación y ejecución
 Instalar dependencias
 npm install
 
-Iniciar servidor en desarrollo
+Servidor en desarrollo
 npm run dev
 
-Servidor en modo producción
+Servidor en producción
 npm start
 
-🌐 URLs base
+URLs base
+
 Local:
 http://localhost:3000
 
-Producción (Railway):
+Producción:
 https://api-production-ba7c.up.railway.app
-
 
 Documentación de la API
 Swagger UI
+
 http://localhost:3000/docs
+
 Permite probar GET, POST, PUT, DELETE y PATCH.
 
 Redoc
+
 http://localhost:3000/docs/redoc
-Incluye schemas, parámetros, ejemplos (x-codeSamples) y estructura completa.
+
+Incluye schemas, parámetros, ejemplos y estructura completa.
 
 Endpoints principales
 Clientes
 Método	Ruta	Descripción
 GET	/api/clientes	Lista todos los clientes
-GET	/api/clientes/{id}	Obtiene un cliente por ID
-POST	/api/clientes	Crea un nuevo cliente
-PUT	/api/clientes/{id}	Actualiza completamente
-PATCH	/api/clientes/{id}	Actualiza parcialmente
-DELETE	/api/clientes/{id}	Elimina un cliente
-
+GET	/api/clientes/{id}	Cliente por ID
+POST	/api/clientes	Crear cliente
+PUT	/api/clientes/{id}	Actualizar cliente
+PATCH	/api/clientes/{id}	Actualización parcial
+DELETE	/api/clientes/{id}	Eliminar cliente
 Joyas
 Método	Ruta	Descripción
-GET	/api/joyas	Lista todas las joyas
-GET	/api/joyas/{id}	Obtiene una joya por ID
-POST	/api/joyas	Crea una joya
-PUT	/api/joyas/{id}	Actualiza completamente
-PATCH	/api/joyas/{id}	Actualiza parcialmente
-DELETE	/api/joyas/{id}	Elimina una joya
-
+GET	/api/joyas	Lista todas
+GET	/api/joyas/{id}	Obtener por ID
+POST	/api/joyas	Crear
+PUT	/api/joyas/{id}	Actualizar
+PATCH	/api/joyas/{id}	Actualizar parcialmente
+DELETE	/api/joyas/{id}	Eliminar
 Ventas
 Método	Ruta	Descripción
-GET	/api/ventas	Lista todas las ventas
-GET	/api/ventas/{id_venta}	Venta por ID
-POST	/api/ventas	Crea una venta
-PUT	/api/ventas/{id_venta}	Actualiza completamente
-PATCH	/api/ventas/{id_venta}	Actualiza parcialmente
-DELETE	/api/ventas/{id_venta}	Elimina una venta
+GET	/api/ventas	Lista todas
+GET	/api/ventas/{id_venta}	Obtener venta
+POST	/api/ventas	Crear
+PUT	/api/ventas/{id_venta}	Actualizar
+PATCH	/api/ventas/{id_venta}	Actualizar parcialmente
+DELETE	/api/ventas/{id_venta}	Eliminar
