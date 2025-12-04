@@ -1,8 +1,7 @@
 # API de Joyería  
 **Autora:** Dariana Gishel Maltos González — *21100239*  
 **Materia:** API REST  
-**Tecnologías:** Node.js · Express · MySQL · Swagger · Redoc · Jest · Supertest  
-
+**Tecnologías:** Node.js · Express · MySQL · Swagger · Redoc
 ---
 
 ## Descripción general
@@ -72,12 +71,15 @@ joyeria-api/
 ├── package.json
 └── README.md
 
-## Base de datos
-La API utiliza la base de datos joyeria_api con tablas relacionales y llaves foráneas:
+Base de datos
+
+La API utiliza la base de datos joyeria_api con tablas relacionales y llaves foráneas.
+
+Crear base de datos
 CREATE DATABASE IF NOT EXISTS joyeria_api;
 USE joyeria_api;
 
-**Tabla joyas:**
+💎 Tabla: joyas
 CREATE TABLE joyas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   sku VARCHAR(40) UNIQUE,
@@ -90,7 +92,7 @@ CREATE TABLE joyas (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-**Tabla clientes:**
+👤 Tabla: clientes
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(120),
@@ -99,7 +101,7 @@ CREATE TABLE clientes (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-**Tabla ventas:**
+🧾 Tabla: ventas
 CREATE TABLE ventas (
   id_venta INT AUTO_INCREMENT PRIMARY KEY,
   id_joya INT,
@@ -112,7 +114,6 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_joya) REFERENCES joyas(id),
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
-
 
 ## Instalación y ejecución
 
