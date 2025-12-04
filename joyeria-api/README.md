@@ -1,54 +1,41 @@
-# API de Joyería  
-**Autora:** Dariana Gishel Maltos González — *21100239*  
-**Materia:** API REST  
-**Tecnologías:** Node.js · Express · MySQL · Swagger · Redoc
----
+API de Joyería
 
-## Descripción general
+Autora: Dariana Gishel Maltos González — 21100239
+Materia: API REST
+Tecnologías: Node.js · Express · MySQL · Swagger · Redoc
 
-La **API de Joyería** es un sistema backend diseñado para gestionar:
+Descripción general
+La API de Joyería es un sistema backend diseñado para gestionar:
+ Clientes
+ Joyas
+ Ventas
 
-- 👥 **Clientes**  
-- 💍 **Joyas**  
-- 🧾 **Ventas**
+La API sigue arquitectura MVC, utiliza MySQL como base de datos, está documentada con OpenAPI 3.0, expuesta mediante Swagger UI y Redoc, e incluye pruebas automatizadas con Jest + Supertest.
 
-La API sigue arquitectura **MVC**, utiliza **MySQL** como base de datos, está documentada con **OpenAPI 3.0**, expuesta mediante **Swagger UI** y **Redoc**, e incluye pruebas automatizadas con **Jest** + **Supertest**.
+El proyecto está desplegado en Railway y cuenta con endpoints completamente funcionales (GET, POST, PUT, DELETE y PATCH).
 
-El proyecto está desplegado en **Railway** y cuenta con endpoints completamente funcionales (GET, POST, PUT, DELETE y PATCH).
 
----
+Objetivos del proyecto
+Implementar un servidor REST con Node.js y Express.
+Conectar y manipular datos en MySQL.
+Construir controladores, rutas y modelos siguiendo arquitectura MVC.
+Documentar profesionalmente usando Swagger UI, Redoc y OpenAPI 3.0.
+Desarrollar pruebas automatizadas con Jest + Supertest.
+Realizar despliegue en Railway.
+Implementar actualizaciones parciales (PATCH).
 
-## Objetivos del proyecto
-
-- Implementar un servidor REST con **Node.js y Express**.  
-- Conectar y manipular datos en **MySQL**.  
-- Construir controladores, rutas y modelos siguiendo **arquitectura MVC**.  
-- Documentar profesionalmente usando **Swagger UI**, **Redoc** y el formato **OpenAPI 3.0**.  
-- Desarrollar pruebas automatizadas con **Jest + Supertest**.  
-- Realizar despliegue en un entorno cloud (**Railway**).  
-- Implementar actualizaciones **parciales (PATCH)**.  
-
----
-
-## Tecnologías y librerías utilizadas
-
-| Tecnología | Uso |
-|-----------|-----|
-| **Node.js** | Entorno de ejecución |
-| **Express** | Servidor web y manejo de rutas |
-| **MySQL + mysql2/promise** | Base de datos |
-| **Swagger UI** | Documentación interactiva |
-| **Redoc** | Documentación tipo manual técnico |
-| **OpenAPI 3.0** | Definición formal de endpoints |
-| **Jest** | Testing |
-| **Supertest** | Pruebas de endpoints HTTP |
-| **Railway** | Despliegue en producción |
-
----
-
-## Estructura del proyecto
-
-```txt
+Tecnologías y librerías utilizadas
+Tecnología	Uso
+Node.js	Entorno de ejecución
+Express	Servidor web y manejo de rutas
+MySQL + mysql2/promise	Base de datos
+Swagger UI	Documentación interactiva
+Redoc	Documentación tipo manual técnico
+OpenAPI 3.0	Definición formal de endpoints
+Jest	Testing
+Supertest	Pruebas de endpoints
+Railway	Producción
+Estructura del proyecto
 joyeria-api/
 ├── server.js                 # Arranque del servidor
 ├── app.js                    # Configuración de Express
@@ -71,11 +58,9 @@ joyeria-api/
 ├── package.json
 └── README.md
 
----
-
 Base de datos
 
-La API utiliza la base de datos joyeria_api con tablas relacionales y llaves foráneas.
+La API utiliza la base de datos joyeria_api, con tablas relacionales y llaves foráneas.
 
 Crear base de datos
 CREATE DATABASE IF NOT EXISTS joyeria_api;
@@ -117,8 +102,6 @@ CREATE TABLE ventas (
   FOREIGN KEY (id_cliente) REFERENCES clientes(id)
 );
 
----
-
 🚀 Instalación y ejecución
 Instalar dependencias
 npm install
@@ -129,8 +112,6 @@ npm run dev
 Servidor en modo producción
 npm start
 
----
-
 🌐 URLs base
 Local:
 http://localhost:3000
@@ -138,50 +119,40 @@ http://localhost:3000
 Producción (Railway):
 https://api-production-ba7c.up.railway.app
 
----
 
 Documentación de la API
-  Swagger UI
-📍 http://localhost:3000/docs
-Permite probar endpoints GET, POST, PUT, DELETE y PATCH desde el navegador.
+Swagger UI
+http://localhost:3000/docs
+Permite probar GET, POST, PUT, DELETE y PATCH.
 
-  Redoc
-📍 http://localhost:3000/docs/redoc
-Incluye:
-Schemas
-Parámetros
-Ejemplos (x-codeSamples)
-Códigos de respuesta
-Estructura completa de la API
+Redoc
+http://localhost:3000/docs/redoc
+Incluye schemas, parámetros, ejemplos (x-codeSamples) y estructura completa.
+
 Endpoints principales
-
----
-
-A continuación, se presentan los recursos principales (Clientes, Joyas y Ventas) con sus rutas y métodos HTTP.
-
-  Clientes
+Clientes
 Método	Ruta	Descripción
 GET	/api/clientes	Lista todos los clientes
 GET	/api/clientes/{id}	Obtiene un cliente por ID
 POST	/api/clientes	Crea un nuevo cliente
-PUT	/api/clientes/{id}	Actualiza un cliente completamente
-PATCH	/api/clientes/{id}	Actualiza parcialmente un cliente
-DELETE	/api/clientes/{id}	Elimina un cliente por ID
+PUT	/api/clientes/{id}	Actualiza completamente
+PATCH	/api/clientes/{id}	Actualiza parcialmente
+DELETE	/api/clientes/{id}	Elimina un cliente
 
-  Joyas
+Joyas
 Método	Ruta	Descripción
 GET	/api/joyas	Lista todas las joyas
 GET	/api/joyas/{id}	Obtiene una joya por ID
-POST	/api/joyas	Crea una nueva joya
-PUT	/api/joyas/{id}	Actualiza una joya completamente
-PATCH	/api/joyas/{id}	Actualiza parcialmente una joya
-DELETE	/api/joyas/{id}	Elimina una joya por ID
+POST	/api/joyas	Crea una joya
+PUT	/api/joyas/{id}	Actualiza completamente
+PATCH	/api/joyas/{id}	Actualiza parcialmente
+DELETE	/api/joyas/{id}	Elimina una joya
 
-  Ventas
+Ventas
 Método	Ruta	Descripción
 GET	/api/ventas	Lista todas las ventas
-GET	/api/ventas/{id_venta}	Obtiene una venta por ID
-POST	/api/ventas	Crea una nueva venta
-PUT	/api/ventas/{id_venta}	Actualiza completamente una venta
-PATCH	/api/ventas/{id_venta}	Actualiza parcialmente una venta
-DELETE	/api/ventas/{id_venta}	Elimina una venta por ID
+GET	/api/ventas/{id_venta}	Venta por ID
+POST	/api/ventas	Crea una venta
+PUT	/api/ventas/{id_venta}	Actualiza completamente
+PATCH	/api/ventas/{id_venta}	Actualiza parcialmente
+DELETE	/api/ventas/{id_venta}	Elimina una venta
